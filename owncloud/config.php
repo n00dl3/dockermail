@@ -1,6 +1,6 @@
 <?php
 
-$domains=explode(";",get_env("DOMAINS"));
+$domains=explode(";",getenv("DOMAINS"));
 
 $arguments=array();
 
