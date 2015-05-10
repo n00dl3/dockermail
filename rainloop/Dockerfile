@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y git
 RUN git clone -b 1.6.9 --depth 1 https://github.com/RainLoop/rainloop-webmail.git /var/www/html
 
 RUN apt-get install -y --force-yes apache2 php5 libapache2-mod-php5 php5-curl php5-json
-
+RUN rm -rf /var/www/html/*
 # Force initialization of data directories triggered at first program start
 RUN php /var/www/html/index.php
 
