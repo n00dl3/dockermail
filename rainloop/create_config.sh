@@ -1,5 +1,5 @@
 #!/bin/bash
-DIR=`ls /var/www/data/_data_* -d`
+DIR=`ls /var/www/html/data/_data_* -d`
 IN=$DOMAINS
 arr=$(echo $IN | tr ";" "\n")
 
