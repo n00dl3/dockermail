@@ -1,6 +1,5 @@
-FROM debian:stable
-
-RUN apt-get install -y --force-yes git
+FROM phusion/baseimage:0.9.16
+RUN apt-get update && apt-get install -y git
 
 RUN git clone -b 1.6.9 --depth 1 https://github.com/RainLoop/rainloop-webmail.git /var/www
 
