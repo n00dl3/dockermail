@@ -5,7 +5,7 @@ $domains=explode(";",get_env("DOMAINS"));
 $arguments=array();
 
 foreach($domains as $domain){
-  $arguments[]="{$domain:143/imap/tls/novalidate-cert}INBOX";
+  $arguments[]='{'.$domain.':143/imap/tls/novalidate-cert}INBOX';
 }
 
 $CONFIG = array(
