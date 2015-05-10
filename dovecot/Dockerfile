@@ -1,5 +1,9 @@
 FROM phusion/baseimage:0.9.16
-
+ENV DEBIAN_FRONTEND=noninteractive
+#from mail-base
+ADD ./aliases /aliases
+ADD ./passwords /passwords
+ADD ./domains /domains
 # prerequisites
 RUN apt-get update
 
