@@ -9,11 +9,10 @@ RUN apt-get install -y --force-yes apache2 php5 libapache2-mod-php5 php5-curl ph
 RUN php /var/www/index.php
 
 RUN chown -R www-data:www-data /var/www
-
+# TODO Move elsewhere
 ADD ./create_config.sh /create_config.sh
 ADD ./rainloop.sh /etc/service/rainloop/run
 RUN chmod +x /etc/service/rainloop/run
-RUN bash ./create_config.sh
 
 RUN cp -r /var/www/rainloop /var/www/html
 RUN cp -r /var/www/data /var/www/html
