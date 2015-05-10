@@ -46,6 +46,10 @@ ADD ./dovecot.auth /etc/dovecot/conf.d/10-auth.conf
 ADD ./dovecot.master /etc/dovecot/conf.d/10-master.conf
 ADD ./dovecot.lda /etc/dovecot/conf.d/15-lda.conf
 ADD ./dovecot.imap /etc/dovecot/conf.d/20-imap.conf
+ADD ./dovecot.sh /etc/service/dovecot/run
+RUN chmod +x /etc/service/dovecot/run
+ADD ./postfix.sh /etc/service/postfix/run
+RUN chmod +x /etc/service/postfix/run
 # add verbose logging
 #ADD ./internal/dovecot.logging /etc/dovecot/conf.d/10-logging.conf
 
@@ -62,6 +66,3 @@ EXPOSE 587
 
 # todo: enable port 587 for outgoing mail, separate ports 25 and 587
 # http://www.synology-wiki.de/index.php/Zusaetzliche_Ports_fuer_Postfix
-
-# start necessary services for operation (dovecot -F starts dovecot in the foreground to prevent container exit)
-ENTRYPOINT chown -R vmail:vmail /srv/vmail; service rsyslog start; service postfix start; dovecot -F

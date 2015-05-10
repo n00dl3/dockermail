@@ -2,6 +2,7 @@
 DIR=`ls /var/www/data/_data_* -d`
 IN=$DOMAINS
 arr=$(echo $IN | tr ";" "\n")
+  
 for i in $arr;
  do echo "\
 imap_host = \"$i\"

@@ -2,7 +2,7 @@ all: mail-base dovecot rainloop owncloud
 
 .PHONY: mail-base dovecot rainloop owncloud run-dovecot run-rainloop run-owncloud
 
-mail-base: 
+mail-base:
 	cd mail-base; docker build --no-cache -t mail-base .
 
 dovecot: mail-base

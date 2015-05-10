@@ -1,5 +1,6 @@
 FROM phusion/baseimage:0.9.16
-
+ADD ./mailpile.sh /etc/service/mailpile/run
+RUN chmod +x /etc/service/mailpile/run
 RUN apt-get update
 RUN apt-get -y --force-yes install git make gettext python-pip
 
@@ -16,7 +17,6 @@ RUN /etc/mailpile/mp setup
 
 EXPOSE 80
 
-ENTRYPOINT /etc/mailpile/mp --www=0.0.0.0:33411 --wait
 
 # installation instructions at
 # https://github.com/pagekite/Mailpile/wiki/Getting-started
