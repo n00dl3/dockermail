@@ -1,7 +1,10 @@
+#!/bin/bash
 DIR=`ls /var/www/data/_data_* -d`
-for i in $(cat /domains);
+IN=$DOMAINS
+arr=$(echo $IN | tr ";" "\n")
+for i in $arr;
  do echo "\
-imap_host = \"$i\" 
+imap_host = \"$i\"
 imap_port = 143
 imap_secure = \"TLS\"
 smtp_host = \"$i\"

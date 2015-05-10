@@ -1,0 +1,10 @@
+dovecot:
+ build: dovecot/
+ ports:
+   - "25:25"
+   - "143:143"
+   - "587:587"
+owncloud:
+  build: owncloud/
+rainloop:
+  build: rainloop/

@@ -1,4 +1,4 @@
-FROM mail-base
+FROM phusion/baseimage:0.9.16
 
 RUN apt-get update
 RUN apt-get -y --force-yes install git make gettext python-pip
@@ -13,6 +13,8 @@ RUN gem install therubyracer less
 RUN git clone -b master --depth=1 https://github.com/pagekite/Mailpile.git /etc/mailpile
 
 RUN /etc/mailpile/mp setup
+
+EXPOSE 80
 
 ENTRYPOINT /etc/mailpile/mp --www=0.0.0.0:33411 --wait
 

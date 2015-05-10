@@ -1,16 +1,16 @@
-FROM mail-base
+FROM phusion/baseimage:0.9.16
 
 # prerequisites
 RUN apt-get update
 
 # install self-signed ssl certs
-RUN apt-get install -y --force-yes ssl-cert
+RUN apt-get install -y ssl-cert
 
 # Install postfix as MTA
-RUN apt-get install -y --force-yes postfix
+RUN apt-get install -y postfix
 
 # Install dovecot as IMAP server
-RUN apt-get install -y --force-yes dovecot-imapd
+RUN apt-get install -y dovecot-imapd
 
 # postfix configuration
 RUN echo "mail.docker.container" > /etc/mailname
@@ -54,7 +54,7 @@ RUN cp /passwords /etc/dovecot/passwd
 
 # i'm not sure what expose actually does, so its mainly here for documentation
 # smtp port for incoming mail
-EXPOSE 25 
+EXPOSE 25
 # imap port
 EXPOSE 143
 # smtp port for outgoing
@@ -65,4 +65,3 @@ EXPOSE 587
 
 # start necessary services for operation (dovecot -F starts dovecot in the foreground to prevent container exit)
 ENTRYPOINT chown -R vmail:vmail /srv/vmail; service rsyslog start; service postfix start; dovecot -F
-
