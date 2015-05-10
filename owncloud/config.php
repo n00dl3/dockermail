@@ -9,7 +9,7 @@ foreach($domains as $domain){
 }
 
 $CONFIG = array(
-'overwritehost' => get_env('PUBLIC_URL'),
+'overwritehost' => getenv('PUBLIC_URL'),
 'check_for_working_webdav' => false,
 'dbtype' => 'sqlite',
 
