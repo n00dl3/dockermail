@@ -7,6 +7,7 @@ if [ ! -e /root/configured ];then
     exit 2
   fi
   SQL="CREATE DATABASE $DB_NAME; GRANT ALL ON $DB_NAME.* to '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWD';"
+  echo $SQL
   mysql -uroot -p$MYSQL_ROOT_PASSWORD --host=mysql -e $SQL
   touch /root/configured
   unset MYSQL_ROOT_PASSWORD
