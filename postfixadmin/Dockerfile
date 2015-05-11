@@ -6,3 +6,6 @@ RUN tar -xvf postfixadmin-2.92.tar.gz
 RUN rm -rf /var/www/html
 RUN mv postfixadmin-2.92 /var/www/html
 RUN chown -R root:www-data /var/www/html
+ADD postfixadmin.sh /etc/service/postfixadmin/run
+RUN chmod +x /etc/service/postfixadmin/run
+EXPOSE 80
