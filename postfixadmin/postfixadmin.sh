@@ -6,7 +6,6 @@ if [ ! -e /root/configured ];then
     echo "you should set every environment variables to run this container"
     exit 2
   fi
-  SQL="CREATE DATABASE $DB_NAME; GRANT ALL ON $DB_NAME.* to '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWD';"
   mysql -uroot -p$MYSQL_ROOT_PASSWORD --host=mysql -e "$SQL"
   touch /root/configured
   unset MYSQL_ROOT_PASSWORD
