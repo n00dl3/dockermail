@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`username`, `password`, `superadmin`, `created`, `modified`, `active`) VALUES
-('admin@example.org', '$1$d27fce8e$Gwpr6iWrJ8IfNWr39R7rd1', 1, '2015-05-11 10:55:34', '2015-05-11 10:55:34', 1);
+('admin@example.org', '$1$197d9fd1$NO1NKFi.4Z26Eyl4Qg2mP0', 1, '2015-05-11 10:55:34', '2015-05-11 10:55:34', 1);
 
 -- --------------------------------------------------------
 
