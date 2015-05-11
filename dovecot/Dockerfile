@@ -15,7 +15,9 @@ RUN apt-get install -y postfix
 
 # Install dovecot as IMAP server
 RUN apt-get install -y dovecot-imapd
-
+#create dir and volume for ssl certificates
+RUN mkdir -p /srv/ssl
+VOLUME /srv/ssl
 # postfix configuration
 RUN echo "mail.docker.container" > /etc/mailname
 ADD ./postfix.main.cf /etc/postfix/main.cf
