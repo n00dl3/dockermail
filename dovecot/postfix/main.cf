@@ -117,7 +117,7 @@ inet_interfaces = all
 mynetworks_style = host
 
 # This specifies where the virtual mailbox folders will be located.
-virtual_mailbox_base = /home/vmail
+virtual_mailbox_base = /srv/vmail
 # This is for the mailbox location for each user. The domainaliases
 # map allows us to make use of Postfix Admin's domain alias feature.
 virtual_mailbox_maps = mysql:/etc/postfix/mysql_virtual_mailbox_maps.cf, mysql:/etc/postfix/mysql_virtual_mailbox_domainaliases_maps.cf

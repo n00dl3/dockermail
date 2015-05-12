@@ -9,12 +9,12 @@ connect = host=mysql dbname=@db_name@ user=@db_user@ password=@db_password@
 default_pass_scheme = MD5-CRYPT
 # Define the query to obtain a user password.
 password_query = \
-  SELECT username as user, password, '/home/vmail/%d/%n' as userdb_home, \
-  'maildir:/home/vmail/%d/%n' as userdb_mail, 5000 as userdb_uid, 5000 as userdb_gid \
+  SELECT username as user, password, '/srv/vmail/%d/%n' as userdb_home, \
+  'maildir:/srv/vmail/%d/%n' as userdb_mail, 5000 as userdb_uid, 5000 as userdb_gid \
   FROM mailbox WHERE username = '%u' AND active = '1'
 
 # Define the query to obtain user information.
 user_query = \
-  SELECT '/home/vmail/%d/%n' as home, 'maildir:/home/vmail/%d/%n' as mail, \
+  SELECT '/srv/vmail/%d/%n' as home, 'maildir:/srv/vmail/%d/%n' as mail, \
   5000 AS uid, 5000 AS gid, concat('dirsize:storage=', quota) AS quota \
   FROM mailbox WHERE username = '%u' AND active = '1'
