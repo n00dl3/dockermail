@@ -103,9 +103,9 @@ disable_vrfy_command = yes
 # General host and delivery info
 # ----------------------------------
 
-myhostname = votre_domaine_principal.tld
-myorigin = /etc/hostname
-mydestination = localhost
+myhostname = @domain@
+myorigin = @domain@
+mydestination = localhost,@domain
 #relayhost =
 # If you have a separate web server that sends outgoing mail through this
 # mailserver, you may want to add its IP address to the space-delimited list in
