@@ -1,0 +1,8 @@
+user = @db_user@
+password = @db_password@
+hosts = mysql
+dbname = @db_name@
+table = alias
+select_field = goto
+where_field = address
+additional_conditions = and active = '1'

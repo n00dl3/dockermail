@@ -1,0 +1,8 @@
+user = @db_user@
+password = @db_password@
+hosts = mysql
+dbname = @db_name@
+table = mailbox
+select_field = CONCAT(domain, '/', local_part)
+where_field = username
+additional_conditions = and active = '1'
