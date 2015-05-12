@@ -17,7 +17,7 @@ owncloud:
 	cd owncloud; docker build -t owncloud:8.0.2 .
 
 run-dovecot:
-	docker run -v /path/to/certs:/srv/ssl -e DB_NAME=postfixadmin -e DB_USER=postfixadmin -e DB_PASSWD=password -d -p 25:25 -p 587:587 -p 143:143 -p 993:993 -v /srv/vmail:/srv/vmail dovecot:2.1.7
+	docker run -v /path/to/certs:/srv/ssl -e DB_NAME=postfixadmin -e DB_USER=postfixadmin -e DB_PASSWD=password -v /srv/certs:/srv/ssl -d -p 25:25 -p 587:587 -p 143:143 -p 993:993 -v /srv/vmail:/srv/vmail dovecot:2.1.7
 
 run-rainloop:
 	docker run -d -p 127.0.0.1:33100:80 rainloop:1.6.9
