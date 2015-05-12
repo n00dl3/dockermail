@@ -7,7 +7,7 @@ ADD ./domains /domains
 # prerequisites
 RUN apt-get update
 # Install postfix as MTA
-RUN apt-get install -y postfix dovecot-imapd dovecot-mysql dovecot-core amavisd-new clamav clamav-daemon spamassassin postfix-mysql
+RUN apt-get install -y postfix dovecot-imapd dovecot-mysql dovecot-core amavisd-new clamav clamav-daemon spamassassin postfix-mysql postgrey
 RUN freshclam
 #create dir and volume for ssl certificates
 RUN mkdir -p /srv/ssl
@@ -22,7 +22,6 @@ RUN chmod u+w /srv/vmail
 ADD amavis /root/amavis
 #dovecot configuration
 ADD dovecot /root/dovecot
-RUN mv -f /root/dovecot/conf.d/* /etc/dovecot/conf.d && rmdir /root/dovecot/conf.d
 #postfix config
 ADD postfix /root/postfix
 # dovecot configuration
