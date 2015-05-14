@@ -1,0 +1,8 @@
+user = @db_user@
+password = @db_password@
+hosts = mysql
+dbname = @db_name@
+table = domain
+select_field = domain
+where_field = domain
+additional_conditions = and backupmx = '0' and active = '1'

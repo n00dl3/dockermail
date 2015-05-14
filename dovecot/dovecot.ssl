@@ -1,4 +1,0 @@
-ssl = required
-disable_plaintext_auth = yes
-ssl_cert = </srv/ssl/dovecot.cert
-ssl_key = </srv/ssl/dovecot.key
