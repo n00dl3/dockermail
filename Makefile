@@ -1,9 +1,12 @@
 all: mail-base dovecot rainloop owncloud
 
-.PHONY: mail-base dovecot rainloop owncloud run-dovecot run-rainloop run-owncloud postfixadmin run-postfixadmin
+.PHONY: mail-base dovecot rainloop owncloud run-dovecot run-rainloop run-owncloud postfixadmin run-postfixadmin roundcube run-roundcube
 
 postfixadmin:
 	cd postfixadmin; docker build -t postfixadmin .
+
+roundcube:
+	cd roundcube; docker build -t n00dl3/roundcube .
 
 dovecot:
 	cd dovecot; docker build -t dovecot:2.1.7 .
@@ -19,6 +22,9 @@ owncloud:
 
 postfixadmin:
 	cd postfixadmin; docker build -t n00dl3/postfixadmin .
+
+run-roundcube:
+	docker run -e VIRTUAL_HOST=roundcube.example.org -e DB_NAME=roundcube -e DB_USER=roundcube -e DB_PASSWD=password --link mysql:mysql -d --name roundcube n00dl3/roundcube
 
 run-postfixadmin:
 	docker run -e VIRTUAL_HOST=postfixadmin.n00dl3.ovh -e DB_NAME=postfixadmin -e DB_USER=postfix -e DB_PASSWD=password -e DOMAIN=example.org --link mysql:mysql -d --name postfixadmin n00dl3/postfixadmin:latest
