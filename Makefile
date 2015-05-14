@@ -1,7 +1,8 @@
 all: mail-base dovecot rainloop owncloud
 
 .PHONY: mail-base dovecot rainloop owncloud run-dovecot run-rainloop run-owncloud postfixadmin run-postfixadmin
-postfixadmin
+
+postfixadmin:
 	cd postfixadmin; docker build -t postfixadmin .
 
 dovecot:
