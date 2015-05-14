@@ -11,14 +11,14 @@ RUN rm -rf /var/www/html
 WORKDIR /root
 # when roundcube grows older, change version in the download link, but also in the 'mv' command
 RUN wget https://downloads.sourceforge.net/project/roundcubemail/roundcubemail/1.1.1/roundcubemail-1.1.1-complete.tar.gz -O - | tar xz
-RUN mv /root/roundcubemail-1.1.1/* /var/www/html
+RUN mv /root/roundcubemail-1.1.1 /var/www/html
 RUN mkdir /rc
 VOLUME /root
 VOLUME /rc
 ADD launch.sh /etc/service/owncloud/run
 ADD config.inc.php /root/config.inc.php
 RUN chmod +x /etc/service/owncloud/run
-RUN rm /var/www/html/config.inc.php && ln -s /rc/config.inc.php /var/www/html/config.inc.php
+RUN ln -s /rc/config.inc.php /var/www/html/config/config.inc.php
 
 VOLUME /rc
 
