@@ -1,6 +1,6 @@
 all: mail-base dovecot rainloop owncloud
 
-.PHONY: mail-base dovecot rainloop owncloud run-dovecot run-rainloop run-owncloud
+.PHONY: mail-base dovecot rainloop owncloud run-dovecot run-rainloop run-owncloud postfixadmin run-postfixadmin
 postfixadmin
 	cd postfixadmin; docker build -t postfixadmin .
 
@@ -17,7 +17,7 @@ owncloud:
 	cd owncloud; docker build -t owncloud:8.0.2 .
 
 postfixadmin:
-	cd postfixadmin; docker build -t n00dl3/postfixadmin
+	cd postfixadmin; docker build -t n00dl3/postfixadmin .
 
 run-postfixadmin:
 	docker run -e VIRTUAL_HOST=postfixadmin.n00dl3.ovh -e DB_NAME=postfixadmin -e DB_USER=postfix -e DB_PASSWD=password -e DOMAIN=example.org --link mysql:mysql -d --name postfixadmin n00dl3/postfixadmin:latest
