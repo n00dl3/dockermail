@@ -19,6 +19,7 @@ ADD launch.sh /etc/service/owncloud/run
 ADD config.inc.php /root/config.inc.php
 RUN chmod +x /etc/service/owncloud/run
 RUN ln -s /rc/config.inc.php /var/www/html/config/config.inc.php
+RUN chown -R www-data:www-data /var/www
 
 VOLUME /rc
 
