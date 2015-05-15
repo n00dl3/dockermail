@@ -25,7 +25,7 @@ smtpd_sasl_authenticated_header = yes
 
 # Replace this with your SSL certificate path if you are using one.
 smtpd_tls_cert_file=/srv/ssl/postfix.cert
-smtpd_tls_key_file=/etc/ssl/postfix.key
+smtpd_tls_key_file=/srv/ssl/postfix.key
 # The snakeoil self-signed certificate has no need for a CA file. But
 # if you are using your own SSL certificate, then you probably have
 # a CA certificate bundle from your provider. The path to that goes
