@@ -119,7 +119,7 @@ $CONF['admin_email'] = '';
 // Mail Server
 // Hostname (FQDN) of your mail server.
 // This is used to send email to Postfix in order to create mailboxes.
-$CONF['smtp_server'] = 'localhost';
+$CONF['smtp_server'] = 'dovecot';
 $CONF['smtp_port'] = '25';
 
 // Encrypt

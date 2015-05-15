@@ -27,10 +27,10 @@ run-roundcube:
 	docker run -e VIRTUAL_HOST=roundcube.example.org -e DB_NAME=roundcube -e DB_USER=roundcube -e DB_PASSWD=password --link mysql:mysql --link dovecot:dovecot -d --name roundcube n00dl3/roundcube
 
 run-postfixadmin:
-	docker run -e VIRTUAL_HOST=postfixadmin.n00dl3.ovh -e DB_NAME=postfixadmin -e DB_USER=postfix -e DB_PASSWD=password -e DOMAIN=example.org --link mysql:mysql -d --name postfixadmin n00dl3/postfixadmin:latest
+	docker run -e VIRTUAL_HOST=postfixadmin.n00dl3.ovh -e DB_NAME=postfixadmin -e DB_USER=postfix -e DB_PASSWD=password -e DOMAIN=example.org --link mysql:mysql --link dovecot:dovecot -d --name postfixadmin n00dl3/postfixadmin:latest
 
 run-dovecot: run-postfixadmin
-	docker run -v /path/to/certs:/srv/ssl -e DB_NAME=postfixadmin -e DB_USER=postfixadmin -e DB_PASSWD=password -e DOMAIN=example.org -v /srv/certs:/srv/ssl -d -p 25:25 -p 587:587 -p 143:143 -p 993:993 -v /srv/vmail:/srv/vmail --name dovecot dovecot:2.1.7
+	docker run -v /path/to/certs:/srv/ssl -e DB_NAME=postfixadmin -e DB_USER=postfixadmin -e DB_PASSWD=password -e DOMAIN=example.org -v /srv/certs:/srv/ssl --link mysql:mysql -d -p 25:25 -p 587:587 -p 143:143 -p 993:993 -v /srv/vmail:/srv/vmail --name dovecot dovecot:2.1.7
 
 run-rainloop:
 	docker run -d -p 127.0.0.1:33100:80 rainloop:1.6.9
