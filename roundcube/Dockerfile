@@ -16,6 +16,7 @@ RUN mkdir /rc
 VOLUME /root
 VOLUME /rc
 ADD launch.sh /etc/service/owncloud/run
+ADD roundcubemail.sql /root/roundcubemail.sql
 ADD config.inc.php /root/config.inc.php
 RUN chmod +x /etc/service/owncloud/run
 RUN ln -s /rc/config.inc.php /var/www/html/config/config.inc.php
