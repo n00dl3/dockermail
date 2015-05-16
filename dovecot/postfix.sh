@@ -1,15 +1,12 @@
-#!/bin/bash
-echo $DOMAIN > /etc/mailname
-for file in /root/postfix/*
-do
-  filename=$(basename $file)
-  if [ filename!="." ]&&[ filename!=".." ];then
-    sed -e "s/@db_user@/$DB_USER/g" -e "s/@db_name@/$DB_NAME/g" -e "s/@db_password@/$DB_PASSWD/g" -e "s/@domain@/$DOMAIN/g" $file > /etc/postfix/$filename
-  fi
-done
-command_directory=$(postconf -h command_directory)
-daemon_directory=$($command_directory/postconf -h daemon_directory)
-# make consistency check
-postfix check 2>&1
-# run Postfix
-exec $daemon_directory/master -v 2>&1
+#!/bin/sh
+ exec 1>&2
+
+ daemon_directory=/usr/lib/postfix \
+ command_directory=/usr/sbin \
+ config_directory=/etc/postfix \
+ queue_directory=/var/spool/postfix \
+ mail_owner=postfix \
+ setgid_group=postdrop \
+   /etc/postfix/postfix-script check || exit 1
+
+ exec /usr/lib/postfix/master
