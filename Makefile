@@ -30,7 +30,7 @@ run-postfixadmin:
 	docker run -e VIRTUAL_HOST=postfixadmin.n00dl3.ovh -e DB_NAME=postfixadmin -e DB_USER=postfix -e DB_PASSWD=password -e DOMAIN=n00dl3.ovh  --link dovecot:dovecot  --link mysql:mysql -d --name postfixadmin n00dl3/postfixadmin:latest
 
 run-dovecot:
-	docker run -e DB_NAME=postfixadmin -e DB_USER=postfixadmin -e DB_PASSWD=password -e DOMAIN=n00dl3.ovh -v /srv/certs:/srv/ssl -d -p 25:25 -p 587:587 -p 143:143 -p 993:993 -v /srv/vmail:/srv/vmail --link mysql:mysql --name dovecot dovecot:2.1.7
+	docker run -e DB_NAME=postfixadmin -e DB_USER=postfixadmin -e DB_PASSWD=password -e DOMAIN=n00dl3.ovh -v /srv/certs:/srv/ssl -d -v /srv/vmail:/srv/vmail --link mysql:mysql --name dovecot dovecot:2.1.7
 
 run-rainloop:
 	docker run -d -p 127.0.0.1:33100:80 rainloop:1.6.9
