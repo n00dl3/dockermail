@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.16
+FROM ubuntu:14.04
 ENV DEBIAN_FRONTEND=noninteractive
 #from mail-base
 # prerequisites
@@ -39,6 +39,7 @@ EXPOSE 993
 # smtp port for outgoing
 EXPOSE 587
 
+ENTRYPOINT chown -R vmail:vmail /srv/vmail; service rsyslog start; service postfix start; dovecot -F
 
 # todo: enable port 587 for outgoing mail, separate ports 25 and 587
 # http://www.synology-wiki.de/index.php/Zusaetzliche_Ports_fuer_Postfix
