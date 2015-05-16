@@ -15,7 +15,7 @@ RUN groupadd -g 5000 vmail
 RUN useradd -g vmail -u 5000 vmail -d /srv/vmail -m
 RUN chown -R vmail:vmail /srv/vmail
 RUN chmod u+w /srv/vmail
-
+RUN echo "mail.docker.container" > /etc/mailname
 ADD amavis /root/amavis
 #dovecot configuration
 ADD dovecot /root/dovecot
@@ -37,7 +37,7 @@ EXPOSE 993
 # smtp port for outgoing
 EXPOSE 587
 
-ENTRYPOINT /root/start_server.sh 
+ENTRYPOINT /root/start_server.sh
 
 # todo: enable port 587 for outgoing mail, separate ports 25 and 587
 # http://www.synology-wiki.de/index.php/Zusaetzliche_Ports_fuer_Postfix
