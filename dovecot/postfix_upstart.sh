@@ -174,6 +174,7 @@ log_daemon_msg "Starting Postfix Mail Transport Agent" postfix
 RET=0
 # for all instances that are not already running, handle chroot setup if needed, and start
 for INSTANCE in $(enabled_instances); do
+  echo "instance found"
     RUNNING=$(running $INSTANCE)
     if [ "X$RUNNING" = X ]; then
     	configure_instance $INSTANCE
