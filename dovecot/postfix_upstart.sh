@@ -179,7 +179,6 @@ for INSTANCE in $(enabled_instances); do
     	configure_instance $INSTANCE
     	CMD="/usr/sbin/postmulti -- -i $INSTANCE -x ${DAEMON}"
       exec $CMD
-	    RET=1
     fi
 done
 log_end_msg $RET
