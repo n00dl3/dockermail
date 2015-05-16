@@ -9,6 +9,7 @@ do
     sed -e "s/@db_user@/$DB_USER/g" -e "s/@db_name@/$DB_NAME/g" -e "s/@db_password@/$DB_PASSWD/g" -e "s/@domain@/$DOMAIN/g" $file > /etc/postfix/$filename
   fi
 done
+cat /etc/postfix/master-additional.cf >> /etc/postfix/master.cf
 
 #############
 ## DOVECOT ##
