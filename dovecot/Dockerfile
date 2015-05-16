@@ -24,9 +24,8 @@ ADD postfix /root/postfix
 # dovecot configuration
 ADD ./dovecot.sh /etc/service/dovecot/run
 RUN chmod +x /etc/service/dovecot/run
-ADD ./postfix_upstart.sh /etc/service/postfix/run
+ADD ./postfix.sh /etc/service/postfix/run
 RUN chmod +x /etc/service/postfix/run
-VOLUME /etc/postfix
 # add verbose logging
 #ADD ./internal/dovecot.logging /etc/dovecot/conf.d/10-logging.conf
 
