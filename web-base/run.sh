@@ -4,4 +4,4 @@ if [ ! -e /root/configured/is_done ];then
   echo "yes">/root/configured/is_done
 fi
 . /root/on_run.sh
-su - www-data -c "apachectl -DFOREGROUND"
+apachectl -DFOREGROUND
