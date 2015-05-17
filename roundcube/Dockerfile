@@ -14,7 +14,7 @@ VOLUME /rc
 ADD on_first_run.sh /root/on_first_run.sh
 ADD roundcubemail.sql /root/roundcubemail.sql
 ADD config.inc.php /root/config.inc.php
-RUN ln -s /rc/config.inc.php /var/www/html/config/config.inc.php
+RUN ln -s /rc/config.inc.php /var/www/config/config.inc.php
 RUN chown -R www-data:www-data /var/www
 
 EXPOSE 80
