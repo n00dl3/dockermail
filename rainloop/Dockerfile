@@ -1,16 +1,14 @@
-FROM phusion/baseimage:0.9.16
-RUN apt-get update && apt-get install -y apache2 php5 libapache2-mod-php5 php5-curl php5-json git
-#remove default content of /var/www/html
-RUN rm -rf /var/www/html/*
-RUN git clone -b 1.6.9 --depth 1 https://github.com/RainLoop/rainloop-webmail.git /var/www/html
+FROM dockermail/web-base
+RUN apt-get update && apt-get install -y php5-curl php5-json git
+#remove default content of /var/www
+RUN rm -rf /var/www/*
+RUN git clone -b 1.6.9 --depth 1 https://github.com/RainLoop/rainloop-webmail.git /var/www
 
 # Force initialization of data directories triggered at first program start
-RUN php /var/www/html/index.php
+RUN php /var/www/index.php
 
 RUN chown -R www-data:www-data /var/www
 # TODO Move elsewhere
-ADD ./create_config.sh /create_config.sh
-ADD ./rainloop.sh /etc/service/rainloop/run
-RUN chmod +x /etc/service/rainloop/run
+ADD ./on_first_run.sh /root/on_first_run.sh
 
 EXPOSE 80

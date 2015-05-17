@@ -1,22 +1,18 @@
 <?php
 
-$domains=explode(";",getenv("DOMAINS"));
-
-$arguments=array();
-
-foreach($domains as $domain){
-  $arguments[]='{'.$domain.':143/imap/tls/novalidate-cert}INBOX';
-}
-
 $CONFIG = array(
 'overwritehost' => getenv('PUBLIC_URL'),
 'check_for_working_webdav' => false,
-'dbtype' => 'sqlite',
-
+'dbtype' => 'mysql',
+"dbname"        => getenv("DB_NAME"),
+"dbuser"        => getenv("DB_USER"),
+"dbpass"        => getenv("DB_PASSWD"),
+"dbhost"        => "mysql",
+"dbtableprefix" => "",
 'user_backends'=>array(
 	array(
 		'class' => 'OC_User_IMAP',
-		'arguments' => $arguments
+		'arguments' => array('{dovecot:143/imap/tls/novalidate-cert}INBOX')
 	)
 )
 

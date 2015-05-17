@@ -1,27 +1,21 @@
-FROM phusion/baseimage:0.9.16
+FROM dockermail/web-base
 ENV     DEBIAN_FRONTEND noninteractive
 MAINTAINER Round Cube <rc@xxx.org>
 
 RUN apt-get -y update && apt-get -y upgrade
-RUN apt-get install -y --no-install-recommends \
-    apache2 php5 wget sqlite3 procps \
-    php5-mcrypt php5-intl php5-sqlite php5-mysql php5-pgsql php-pear
+RUN apt-get install -y --no-install-recommends procps php5-mcrypt php5-intl php-pear mysql-client
 
-RUN rm -rf /var/www/html
 WORKDIR /root
 # when roundcube grows older, change version in the download link, but also in the 'mv' command
 RUN wget https://downloads.sourceforge.net/project/roundcubemail/roundcubemail/1.1.1/roundcubemail-1.1.1-complete.tar.gz -O - | tar xz
-RUN mv /root/roundcubemail-1.1.1 /var/www/html
+RUN mv -f /root/roundcubemail-1.1.1 /var/www
 RUN mkdir /rc
-VOLUME /root
 VOLUME /rc
-ADD launch.sh /etc/service/owncloud/run
+ADD on_first_run.sh /root/on_first_run.sh
 ADD roundcubemail.sql /root/roundcubemail.sql
 ADD config.inc.php /root/config.inc.php
 RUN chmod +x /etc/service/owncloud/run
 RUN ln -s /rc/config.inc.php /var/www/html/config/config.inc.php
 RUN chown -R www-data:www-data /var/www
-
-VOLUME /rc
 
 EXPOSE 80
