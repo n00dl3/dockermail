@@ -10,7 +10,7 @@ RUN rm -rf /var/www
 RUN mv -f /root/owncloud /var/www
 # Generate data directory etc.
 ADD ./config.php /var/www/config/config.php
-ADD ./owncloud.sh /etc/service/owncloud/run
+ADD ./on_first_run.sh /root/on_first_run.sh
 ADD ./autoconfig.php /var/www/config/autoconfig.php
 RUN mkdir /var/www/data
 
