@@ -5,7 +5,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
 # Install postfix as MTA
 RUN apt-get install -y postfix dovecot-imapd dovecot-mysql dovecot-core postfix-mysql postgrey
-RUN freshclam
 #create dir and volume for ssl certificates
 RUN mkdir -p /srv/ssl
 VOLUME /srv/ssl
@@ -16,7 +15,6 @@ RUN useradd -g vmail -u 5000 vmail -d /srv/vmail -m
 RUN chown -R vmail:vmail /srv/vmail
 RUN chmod u+w /srv/vmail
 RUN echo "mail.docker.container" > /etc/mailname
-ADD amavis /root/amavis
 #dovecot configuration
 ADD dovecot /root/dovecot
 #postfix config
