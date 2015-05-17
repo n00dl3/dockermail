@@ -7,7 +7,7 @@ RUN apt-get install -y --no-install-recommends procps php5-mcrypt php5-intl php-
 
 WORKDIR /root
 # when roundcube grows older, change version in the download link, but also in the 'mv' command
-RUN wget --no-check-certificates https://downloads.sourceforge.net/project/roundcubemail/roundcubemail/1.1.1/roundcubemail-1.1.1-complete.tar.gz -O - | tar xz
+RUN wget --no-check-certificate https://downloads.sourceforge.net/project/roundcubemail/roundcubemail/1.1.1/roundcubemail-1.1.1-complete.tar.gz -O - | tar xz
 RUN mv -f /root/roundcubemail-1.1.1 /var/www
 RUN mkdir /rc
 VOLUME /rc
