@@ -34,4 +34,5 @@ chown -R vmail:vmail /srv/vmail
 service rsyslog start
 service postfix start
 service postgrey start
-dovecot -F
+service dovecot start
+exec tail -F -n 0 /var/log/mail.log
