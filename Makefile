@@ -23,7 +23,7 @@ owncloud:
 postfixadmin:
 	cd postfixadmin; docker build -t dockermail/postfixadmin .
 web-base:
-	cd web-base; docker build -t dockermail/web-base
+	cd web-base; docker build -t dockermail/web-base .
 
 run-roundcube:
 	docker run -e VIRTUAL_HOST=roundcube.n00dl3.ovh -e DB_NAME=roundcubemail -e DB_USER=roundcube -e DB_PASSWD=password --link mysql:mysql --link dovecot:dovecot -d --name roundcube dockermail/roundcube
