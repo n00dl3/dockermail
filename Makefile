@@ -41,6 +41,6 @@ run-mailpile:
 	docker run -d -p 127.0.0.1:33411:33411 dockermail/mailpile:latest
 
 run-owncloud:
-	docker run -d -p 127.0.0.1:33200:80 -e VIRTUAL_HOST=owncloud.n00dl3.ovh -v /srv/owncloud:/var/www/owncloud/data --link mysql:mysql --name owncloud dockermail/owncloud:8.0.2
+	docker run -d  -e VIRTUAL_HOST=owncloud.n00dl3.ovh -v /srv/owncloud:/var/www/owncloud/data -e DB_NAME=owncloud -e DB_USER=owncloud -e DB_PASSWORD=password --link mysql:mysql --name owncloud dockermail/owncloud:8.0.2
 
 run-all: run-dovecot run-rainloop run-owncloud
