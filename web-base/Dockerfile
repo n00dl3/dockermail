@@ -10,6 +10,7 @@ ADD on_first_run.sh /root/on_first_run.sh
 ADD on_run.sh /root/on_run.sh
 RUN chown -R www-data:www-data /var/www
 RUN mkdir /root/configured
+RUN chmod +x /root/run.sh
 VOLUME /root/configured
 ENTRYPOINT /root/run.sh
 EXPOSE 80
