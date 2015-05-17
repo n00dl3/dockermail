@@ -8,6 +8,7 @@ RUN rm -rf /var/www/html
 ADD run.sh /root/run.sh
 ADD on_first_run.sh /root/on_first_run.sh
 ADD on_run.sh /root/on_run.sh
+ADD 000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN chown -R www-data:www-data /var/www
 RUN mkdir /root/configured
 RUN chmod +x /root/run.sh
