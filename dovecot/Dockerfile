@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # prerequisites
 RUN apt-get update
 # Install postfix as MTA
-RUN apt-get install -y postfix dovecot-imapd dovecot-mysql dovecot-core amavisd-new clamav clamav-daemon spamassassin postfix-mysql postgrey
+RUN apt-get install -y postfix dovecot-imapd dovecot-mysql dovecot-core postfix-mysql postgrey
 RUN freshclam
 #create dir and volume for ssl certificates
 RUN mkdir -p /srv/ssl
@@ -24,6 +24,7 @@ ADD postfix /root/postfix
 # dovecot configuration
 ADD ./start.sh /root/start_server.sh
 RUN chmod +x /root/start_server.sh
+ADD rsyslog-default.conf /etc/rsyslog.d/50-default.conf
 # add verbose logging
 #ADD ./internal/dovecot.logging /etc/dovecot/conf.d/10-logging.conf
 

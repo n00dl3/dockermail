@@ -33,4 +33,5 @@ chown -R vmail:vmail /srv/ssl
 chown -R vmail:vmail /srv/vmail
 service rsyslog start
 service postfix start
+service postgrey start
 dovecot -F
