@@ -22,7 +22,7 @@ ADD postfix /root/postfix
 # dovecot configuration
 ADD ./start.sh /root/start_server.sh
 RUN chmod +x /root/start_server.sh
-ADD rsyslog-default.conf /etc/rsyslog.d/50-default.conf
+RUN ln -s /dev/stdout /var/log/mail.log
 # add verbose logging
 #ADD ./internal/dovecot.logging /etc/dovecot/conf.d/10-logging.conf
 
