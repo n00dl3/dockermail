@@ -1,6 +1,6 @@
 #!/bin/bash
 # this file is based upon based upon tutum-docker-mysql by Fernando Mayo <fernando@tutum.co>, Feng Honglin <hfeng@tutum.co>
-# and has been edited 
+# and has been edited
 VOLUME_HOME="/var/lib/mysql"
 CONF_FILE="/etc/mysql/conf.d/my.cnf"
 LOG="/var/log/mysql/error.log"
@@ -83,7 +83,7 @@ ImportSql()
       POSTFIXADMIN_PASSWD="password"
       echo "\033[1;33m**WARNING**\033[0m POSTFIXADMIN_PASSWD is not set, using default password: 'password'"
   fi
-  mysql -uroot -e "CREATE DATABASE '$POSTFIXADMIN_DB' DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; GRANT ALL PRIVILEGES ON '$POSTFIXADMIN_DB'.* TO '$POSTFIXADMIN_USER'@'%' IDENTIFIED BY '$POSTFIXADMIN_PASSWD';"
+  mysql -uroot -e "CREATE DATABASE \`$POSTFIXADMIN_DB\` DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; GRANT ALL PRIVILEGES ON \`$POSTFIXADMIN_DB\`.* TO '$POSTFIXADMIN_USER'@'%' IDENTIFIED BY '$POSTFIXADMIN_PASSWD';"
   echo "Done"
   ######################
   ##### ROUND CUBE #####
@@ -99,7 +99,7 @@ ImportSql()
       ROUNDCUBE_PASSWD="password"
       echo "\033[1;33m**WARNING**\033[0m ROUNDCUBE_PASSWD is not set, using default password: 'password'"
   fi
-  mysql -uroot -e "CREATE DATABASE '$ROUNDCUBE_DB' DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; GRANT ALL PRIVILEGES ON '$ROUNDCUBE_DB'.* TO '$ROUNDCUBE_USER'@'%' IDENTIFIED BY '$ROUNDCUBE_PASSWD';"
+  mysql -uroot -e "CREATE DATABASE \`$ROUNDCUBE_DB\` DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; GRANT ALL PRIVILEGES ON \`$ROUNDCUBE_DB\`.* TO '$ROUNDCUBE_USER'@'%' IDENTIFIED BY '$ROUNDCUBE_PASSWD';"
   echo "Done"
   ######################
   ###### OWNCLOUD ######
@@ -115,7 +115,7 @@ ImportSql()
       OWNCLOUD_PASSWD="password"
       echo "\033[1;33m**WARNING**\033[0m OWNCLOUD_PASSWD is not set, using default password: 'password'"
   fi
-  mysql -uroot -e "CREATE DATABASE '$OWNCLOUD_DB' DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; GRANT ALL PRIVILEGES ON '$OWNCLOUD_DB'.* TO '$OWNCLOUD_DB'@'%' IDENTIFIED BY '$OWNCLOUD_PASSWD';"
+  mysql -uroot -e "CREATE DATABASE \`$OWNCLOUD_DB\` DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; GRANT ALL PRIVILEGES ON \`$OWNCLOUD_DB\`.* TO '$OWNCLOUD_USER'@'%' IDENTIFIED BY '$OWNCLOUD_PASSWD';"
   echo "Done"
   mysqladmin -uroot shutdown
 }

@@ -107,14 +107,14 @@ OWNCLOUD_MYSQL_PASSWD=$(RandomString 32)
 echo "starting mysql container..."
 docker run -d \
 --name dockermail_mysql \
--e POSTFIXADMIN_DB=dockermail_postfixadmin \
--e POSTFIXADMIN_USER=dockermail_postfixadmin \
--e POSTFIXADMIN_MYSQL_PASSWD=$POSTFIXADMIN_MYSQL_PASSWD \
+-e POSTFIXADMIN_DB=postfixadmin \
+-e POSTFIXADMIN_USER=postfixadmin \
+-e POSTFIXADMIN_PASSWD=$POSTFIXADMIN_MYSQL_PASSWD \
 -e OWNCLOUD_PASSWD=$OWNCLOUD_MYSQL_PASSWD \
--e OWNCLOUD_USER=dockermail_owncloud \
--e OWNCLOUD_DB=dockermail_owncloud \
--e ROUNDCUBE_USER=dockermail_roundcube \
--e ROUNDCUBE_DB=dockermail_roundcube \
+-e OWNCLOUD_USER=owncloud \
+-e OWNCLOUD_DB=owncloud \
+-e ROUNDCUBE_USER=roundcube \
+-e ROUNDCUBE_DB=roundcube \
 -e ROUNDCUBE_PASSWD=$ROUNDCUBE_MYSQL_PASSWD \
 dockermail/mysql
 echo "mysql container started !"
@@ -132,9 +132,9 @@ DOVECOT_PORT_BINDING="-p ${DOVECOT_INTERFACE}:${IMAP_PORT}:143"
 echo "Specify the port for imap connections (SSL) [993] :"
 read IMAPS_PORT
 if [ -z "$IMAPS_PORT" ];then
-  IMAP_PORT="993"
+  IMAPS_PORT="993"
 fi
-DOVECOT_PORT_BINDING="${DOVECOT_PORT_BINDING} -p ${DOVECOT_INTERFACE}:${IMAP_PORT}:993"
+DOVECOT_PORT_BINDING="${DOVECOT_PORT_BINDING} -p ${DOVECOT_INTERFACE}:${IMAPS_PORT}:993"
 
 echo "Specify the port for incoming smtp connections [25] :"
 read SMTP_IN
@@ -146,7 +146,7 @@ DOVECOT_PORT_BINDING="${DOVECOT_PORT_BINDING} -p ${DOVECOT_INTERFACE}:${SMTP_IN}
 echo "Specify the port for outgoing smtp connections [587] :"
 read SMTP_OUT
 if [ -z "$SMTP_OUT" ];then
-  SMTP_IN="587"
+  SMTP_OUT="587"
 fi
 DOVECOT_PORT_BINDING="${DOVECOT_PORT_BINDING} -p ${DOVECOT_INTERFACE}:${SMTP_OUT}:587"
 
@@ -161,8 +161,8 @@ fi
 echo "starting mail server container..."
 docker run -d \
  --name dockermail_dovecot \
--e DB_NAME=dockermail_postfixadmin \
--e DB_USER=dockermail_postfixadmin \
+-e DB_NAME=postfixadmin \
+-e DB_USER=postfixadmin \
 -e DB_PASSWD=$POSTFIXADMIN_MYSQL_PASSWD \
 $DOVECOT_PORT_BINDING \
 -e DOMAIN=$DOMAIN_NAME \
@@ -201,8 +201,8 @@ docker run -d \
 --name dockermail_postfixadmin \
 --link dockermail_mysql:mysql \
 --link dockermail_dovecot:dovecot \
--e DB_NAME=dockermail_postfixadmin \
--e DB_USER=dockermail_postfixadmin \
+-e DB_NAME=postfixadmin \
+-e DB_USER=postfixadmin \
 -e DB_PASSWD=$POSTFIXADMIN_MYSQL_PASSWD \
 $POSTFIX_ADMIN_VHOST \
 $POSTFIXADMIN_PORT_BIND \
@@ -212,7 +212,7 @@ echo "postfixadmin started !"
 
 echo "would you like to run roundcube container ? [y/N]"
 read BUILD_ROUNDCUBE
-if [ $BUILD_ROUNDCUBE=="Y" ]||[ $BUILD_ROUNDCUBE =="y" ];then
+if [ "$BUILD_ROUNDCUBE" == "Y" ] || [ "$BUILD_ROUNDCUBE" == "y" ];then
   if [ -z "$(docker images | grep dockermail/roundcube)" ];then
     echo "building Roundcube image..."
     cd ./roundcube && docker build -t dockermail/roundcube . && cd ..
@@ -245,8 +245,8 @@ if [ $BUILD_ROUNDCUBE=="Y" ]||[ $BUILD_ROUNDCUBE =="y" ];then
   echo "building roundcube container...."
   docker run -d \
   --name dockermail_roundcube \
-  -e DB_NAME=dockermail_roundcube \
-  -e DB_USER=dockermail_roundcube \
+  -e DB_NAME=roundcube \
+  -e DB_USER=roundcube \
   -e DB_PASSWD=$ROUNDCUBE_MYSQL_PASSWD \
   $ROUNDCUBE_PORT_BIND \
   $ROUNDCUBE_VHOST \
@@ -258,7 +258,7 @@ fi
 
 echo "Would you like to run owncloud container ? [y/N]"
 read BUILD_OWNCLOUD
-if [ $BUILD_OWNCLOUD=="Y" ]||[ $BUILD_OWNCLOUD =="y" ];then
+if [ "$BUILD_OWNCLOUD" == "Y" ] || [ "$BUILD_OWNCLOUD" == "y" ];then
   OWNCLOUD_DATA_PATH="$INSTALL_PATH/owncloud/data"
   if [ -z "$(docker images | grep dockermail/owncloud)" ];then
     echo "building Postfixadmin image..."
@@ -297,8 +297,8 @@ if [ $BUILD_OWNCLOUD=="Y" ]||[ $BUILD_OWNCLOUD =="y" ];then
   docker run -d \
   --name dockermail_owncloud \
   -v $OWNCLOUD_DATA_PATH:/var/www/owncloud/data \
-  -e DB_NAME=dockermail_owncloud \
-  -e DB_USER=dockermail_owncloud \
+  -e DB_NAME=owncloud \
+  -e DB_USER=owncloud \
   -e DB_PASSWORD=$OWNCLOUD_MYSQL_PASSWD \
   $OWNCLOUD_PORT_BIND \
   $OWNCLOUD_VHOST \
