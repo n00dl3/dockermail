@@ -12,8 +12,7 @@ RUN mv -f /root/owncloud /var/www
 ADD ./config.php /var/www/config/config.php
 ADD ./on_first_run.sh /root/on_first_run.sh
 ADD ./autoconfig.php /var/www/config/autoconfig.php
-RUN mkdir /var/www/data
 
 RUN chown -R www-data:www-data /var/www
-
+VOLUME /var/www/owncloud/data
 RUN a2enmod rewrite && php5enmod imap

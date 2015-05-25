@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`username`, `password`, `superadmin`, `created`, `modified`, `active`) VALUES
-('admin@example.org', '$1$197d9fd1$NO1NKFi.4Z26Eyl4Qg2mP0', 1, '2015-05-11 10:55:34', '2015-05-11 10:55:34', 1);
+('@@admin_login@@', '@@password_hash@@', 1, '2015-05-11 10:55:34', '2015-05-11 10:55:34', 1);
 
 -- --------------------------------------------------------
 
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `domain_admins` (
 --
 
 INSERT INTO `domain_admins` (`username`, `domain`, `created`, `active`) VALUES
-('admin@example.org', 'ALL', '2015-05-11 10:55:34', 1);
+('@@admin_login@@', 'ALL', '2015-05-11 10:55:34', 1);
 
 -- --------------------------------------------------------
 
@@ -179,16 +179,6 @@ CREATE TABLE IF NOT EXISTS `log` (
   `data` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Postfix Admin - Log';
 
---
--- Dumping data for table `log`
---
-
-INSERT INTO `log` (`timestamp`, `username`, `domain`, `action`, `data`) VALUES
-('2015-05-11 10:10:42', 'SETUP.PHP (172.17.0.50)', '', 'create_admin', 'admin@n00dl3.ovh'),
-('2015-05-11 10:52:36', 'SETUP.PHP (172.17.0.50)', '', 'create_admin', 'test@n00dl3.ovh'),
-('2015-05-11 10:55:34', 'SETUP.PHP (172.17.0.50)', '', 'create_admin', 'admin@example.org'),
-('2015-05-11 10:55:48', 'test@n00dl3.ovh (172.17.0.50)', 'admin', 'delete_admin', 'test@n00dl3.ovh'),
-('2015-05-11 10:55:53', 'test@n00dl3.ovh (172.17.0.50)', 'admin', 'delete_admin', 'admin@n00dl3.ovh');
 
 -- --------------------------------------------------------
 

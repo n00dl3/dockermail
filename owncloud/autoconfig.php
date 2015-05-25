@@ -8,5 +8,5 @@ $AUTOCONFIG = array(
   "dbtableprefix" => "",
   "adminlogin"    => getenv('ADMIN_LOGIN')?getenv('ADMIN_LOGIN'):"admin",
   "adminpass"     => getenv('ADMIN_PASSWD')?getenv('ADMIN_PASSWD'):"admin",
-  "directory"     => "/var/www/data",
+  "directory"     => "/var/www/owncloud/data",
 );

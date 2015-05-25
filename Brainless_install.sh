@@ -118,6 +118,11 @@ docker run -d \
 -e ROUNDCUBE_PASSWD=$ROUNDCUBE_MYSQL_PASSWD \
 dockermail/mysql
 echo "mysql container started !"
+echo "waiting for mysql container to be fully loaded..."
+while [ -z $(docker logs dockermail_mysql |grep "ready for connections")];do
+    echo -n "."
+    sleep 2
+done
 echo "Specify the interface to bind the mail server to [0.0.0.0] :"
 read DOVECOT_INTERFACE
 if [ -z "$DOVECOT_INTERFACE" ];then
@@ -195,12 +200,24 @@ else
   fi
   POSTFIXADMIN_PORT_BIND="-p ${POSTFIXADMIN_INTERFACE}:${POSTFIXADMIN_PORT}:80"
 fi
+echo "please, Specify an admin account login [admin@${DOMAIN_NAME}] :"
+read ADMIN_LOGIN
+if [ -z "$ADMIN_LOGIN" ];then
+    ADMIN_LOGIN=admin@${DOMAIN_NAME}
+fi
+
+while [ -z "$ADMIN_PASSWORD" ]||[ ${#ADMIN_PASSWORD} -lt 12 ];do
+    echo "Please, provide a password for your admin account with at least 12 chars:"
+    read ADMIN_PASSWORD
+done
 
 echo "starting postfixadmin container..."
 docker run -d \
 --name dockermail_postfixadmin \
 --link dockermail_mysql:mysql \
 --link dockermail_dovecot:dovecot \
+-e ADMIN_PASSWORD=$ADMIN_PASSWORD \
+-e ADMIN_LOGIN=$ADMIN_LOGIN \
 -e DB_NAME=postfixadmin \
 -e DB_USER=postfixadmin \
 -e DB_PASSWD=$POSTFIXADMIN_MYSQL_PASSWD \
@@ -242,6 +259,7 @@ if [ "$BUILD_ROUNDCUBE" == "Y" ] || [ "$BUILD_ROUNDCUBE" == "y" ];then
     fi
     ROUNDCUBE_PORT_BIND="-p ${ROUNDCUBE_INTERFACE}:${ROUNDCUBE_PORT}:80"
   fi
+
   echo "building roundcube container...."
   docker run -d \
   --name dockermail_roundcube \
@@ -292,14 +310,26 @@ if [ "$BUILD_OWNCLOUD" == "Y" ] || [ "$BUILD_OWNCLOUD" == "y" ];then
     fi
     OWNCLOUD_PORT_BIND="-p ${OWNCLOUD_INTERFACE}:${OWNCLOUD_PORT}:80"
   fi
-
+  OWNCLOUD_ADMIN_USER=""
+  echo "please, provide an admin login for your owncloud installation [admin] :"
+  read OWNCLOUD_ADMIN_USER
+  if [ -z "$OWNCLOUD_ADMIN_USER" ];then
+      OWNCLOUD_ADMIN_USER="admin"
+  fi
+  OWNCLOUD_ADMIN_PASSWORD=""
+  until [ ${#OWNCLOUD_ADMIN_PASSWORD} -lt 12 ];do
+      echo "please, provide an admin password for your owncloud installation :"
+      read OWNCLOUD_ADMIN_PASSWORD
+  done
   echo "building owncloud container..."
   docker run -d \
   --name dockermail_owncloud \
   -v $OWNCLOUD_DATA_PATH:/var/www/owncloud/data \
   -e DB_NAME=owncloud \
   -e DB_USER=owncloud \
-  -e DB_PASSWORD=$OWNCLOUD_MYSQL_PASSWD \
+  -e DB_PASSWD=$OWNCLOUD_MYSQL_PASSWD \
+  -e ADMIN_LOGIN=$OWNCLOUD_ADMIN_USER \
+  -e ADMIN_PASSWD=$OWNCLOUD_MYSQL_PASSWD \
   $OWNCLOUD_PORT_BIND \
   $OWNCLOUD_VHOST \
   --link dockermail_mysql:mysql \
