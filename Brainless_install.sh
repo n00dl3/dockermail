@@ -118,11 +118,13 @@ docker run -d \
 -e ROUNDCUBE_PASSWD=$ROUNDCUBE_MYSQL_PASSWD \
 dockermail/mysql
 echo "mysql container started !"
-echo "waiting for mysql container to be fully loaded..."
-while [ -z $(docker logs dockermail_mysql |grep "ready for connections")];do
+echo -n "waiting for mysql container to be fully loaded..."
+while [ -z "$STARTED" ];do
+    STARTED=$(docker logs dockermail_mysql |grep "ready for connections")
     echo -n "."
     sleep 2
 done
+echo "."
 echo "Specify the interface to bind the mail server to [0.0.0.0] :"
 read DOVECOT_INTERFACE
 if [ -z "$DOVECOT_INTERFACE" ];then
@@ -317,7 +319,7 @@ if [ "$BUILD_OWNCLOUD" == "Y" ] || [ "$BUILD_OWNCLOUD" == "y" ];then
       OWNCLOUD_ADMIN_USER="admin"
   fi
   OWNCLOUD_ADMIN_PASSWORD=""
-  until [ ${#OWNCLOUD_ADMIN_PASSWORD} -lt 12 ];do
+while [ ${#OWNCLOUD_ADMIN_PASSWORD} -lt 12 ];do
       echo "please, provide an admin password for your owncloud installation :"
       read OWNCLOUD_ADMIN_PASSWORD
   done
