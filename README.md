@@ -1,5 +1,23 @@
 dockermail
 ==========
+This is a fork of [Benno Ever's dockermail](https://github.com/lava/dockermail) which has been modified to be more flexible than its brother.
+I made this fork in order to get a self-hosting platform that fit my needs, and which was easy to deploy and maintain.
+
+## Differences from original dockermail
+I have used a mysql backend to store users, so you can edit them via postfixadmin's interface. All the configuration is done at run-time whereas it was done at image-build time in lava's implementation. I also removed some functionality that didn't fit my needs like rainloop.
+
+|spec|lava's dockermail | n00dl3's dockermail |
+|----|------------------|---------------------|
+|mail-server|:white_check_mark:|:white_check_mark:|
+|rainloop   |:white_check_mark:|:x:|
+|mailpile   |:white_check_mark:|:x:[<sup>[1]</sup>](#mailepile)|
+|owncloud   |:white_check_mark:|:white_check_mark:|
+|postfixadmin|:x:              |:white_check_mark:|
+|roundcube   |:x:              |:white_check_mark:|
+|runtime configuration|:x:     |:white_check_mark:|
+
+<a id="mailpile"></a>[1] mailpile is not included until there is a stable 1.0 release
+
 
 A mail server in a box.
 
@@ -102,14 +120,18 @@ extremely simple, dont be afraid to look inside.
 8) Enjoy.
 
 
+
+##Roadmap
+* add OpenDKIM support
+* add SpamAssassin support
+* add ClamAV support
+* maybe add an optional torrent client
+* add replication support for MySQL container in the brainless installer
+
+
 Known issues / Todo / Wishlist
 ==============================
 - HELO isn't set correctly, which can lead to problems with outgoing mail on some servers
 
-- It would be nice to have a way of catching mail to all subdomains.
-
-- Changing any configuration requires rebuilding the image and restarting the container
-
-- The Makefile currently cannot stop/replace old containers automatically
 
 Patches welcome!
