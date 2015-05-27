@@ -1,4 +1,8 @@
 run_mysql_server(){
+    stop_container mysql
+    if [ $? -gt 0 ];then
+      return 2
+    fi
     POSTFIXADMIN_MYSQL_PASSWD=$1
     OWNCLOUD_MYSQL_PASSWD=$2
     ROUNDCUBE_MYSQL_PASSWD=$3

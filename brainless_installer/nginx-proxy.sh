@@ -1,4 +1,8 @@
 run_nginx_proxy(){
+    stop_container nginx
+    if [ $? -gt 0 ];then
+      return 2
+    fi
     local INSTALL_PATH=$1
     local NGINX_PATH="$INSTALL_PATH/nginx"
     local NGINX_CERT_PATH="$NGINX_PATH/certs"
